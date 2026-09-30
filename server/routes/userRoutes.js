@@ -1,0 +1,13 @@
+import express from 'express';
+import { getUser, updateUser, searchUsers, followUser, getFollowers, getFollowing, getSuggestions } from '../controllers/userController.js';
+import { protect } from '../middleware/auth.js';
+import { upload } from '../middleware/upload.js';
+const router = express.Router();
+router.get('/search', protect, searchUsers);
+router.get('/suggestions', protect, getSuggestions);
+router.get('/:id', protect, getUser);
+router.put('/:id', protect, upload.single('profilePicture'), updateUser);
+router.post('/:id/follow', protect, followUser);
+router.get('/:id/followers', protect, getFollowers);
+router.get('/:id/following', protect, getFollowing);
+export default router;
